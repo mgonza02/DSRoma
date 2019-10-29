@@ -5,7 +5,7 @@ CURRENT_PERIOD="$(date '+%Y%m')"
 FECHA_ARCH=`date -d "$(date +%Y-%m-01) -1 day" +%Y%m%d`
 PERIODO_ARCH=`date -d "$(date +%Y-%m-01) -1 day" +%Y%m`
 PERIODO_ARCH="201909"
-
+cd  /media/backup/sqlserver/
 #FILE="$(find  hst/entregas*.bak -mtime +2 -print & ) |   head -n 1"
 echo "" > file.tx
 (find  backup/${FILEPREFIX}_20*.bak -mtime +2 -print & ) | sort -zr | head -n 1 > file.tx
@@ -17,7 +17,7 @@ if [ -f "$FILE" ]; then
         mv $BACK_FILE "${BACK_FILE}.copy"
     fi
     mv "${FILE}" "${BACK_FILE}"
-    echo "Archived ${FILE} in ${BACK_FILE}" >> hst/${FILEPREFIX}.${CURRENT_PERIOD}.log
+    echo "$(date) Archived ${FILE} in ${BACK_FILE}" >> hst/${FILEPREFIX}.${CURRENT_PERIOD}.log
     echo "Procesed hst ${FILE}"
     if [ -f "$BACK_FILE" ]; then
         find  backup/${FILEPREFIX}_20*.bak -mtime +2  -exec mv {} trash/ \;  
@@ -34,7 +34,7 @@ if [ -f "$FILE" ]; then
         mv $BACK_FILE "${BACK_FILE}.copy"
     fi
     mv "${FILE}" "${BACK_FILE}"
-    echo "Archived ${FILE} in ${BACK_FILE}" >> final/${FILEPREFIX}.${PERIODO_ARCH}.log
+    echo "$(date) Archived ${FILE} in ${BACK_FILE}" >> final/${FILEPREFIX}.${PERIODO_ARCH}.log
     echo "Procesed final ${FILE}"
     if [ -f "$BACK_FILE" ]; then
         find  backup/${FILEPREFIX}_20*.bak -mtime +12  -exec mv {} trash/ \;  
